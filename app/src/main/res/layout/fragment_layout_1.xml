@@ -26,7 +26,7 @@
         android:layout_margin="50dp"
         android:layout_gravity="center"
         android:padding="20dp"
-        android:background="@drawable/roundstartbutton"
+        android:background="@drawable/greenroundstartbutton"
         android:src="@drawable/play_svgrepo_com"
         android:scaleType="fitCenter"
         />

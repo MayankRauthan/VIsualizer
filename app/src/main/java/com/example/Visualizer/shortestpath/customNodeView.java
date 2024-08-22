@@ -1,4 +1,4 @@
-package com.example.Visualizer;
+package com.example.Visualizer.shortestpath;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,9 +12,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.Visualizer.R;
+
 import org.w3c.dom.Text;
 
 public class customNodeView extends FrameLayout {
+
+    int nodeNo;
+    int currentBackgroundResource;
     public customNodeView(@NonNull Context context) {
         super(context);
     }
@@ -29,6 +34,7 @@ public class customNodeView extends FrameLayout {
     public customNodeView(@NonNull Context context,int nodeNo)
     {
         super(context);
+        this.nodeNo=nodeNo;
         init(nodeNo,context);
     }
 
@@ -36,9 +42,17 @@ public class customNodeView extends FrameLayout {
         View inflate = LayoutInflater.from(context).inflate(R.layout.nodes, this, true);
 
         TextView nodeNumberText = (TextView)inflate.findViewById(R.id.node_no);
-
+        setBackgroundResource(R.drawable.greenroundstartbutton);
         // Set the node number
         nodeNumberText.setText(nodeNo+"");
     }
+
+    public void setBackgroundResource(int resource)
+    {
+        ImageView imageView = (ImageView) this.findViewById(R.id.imageView);
+        currentBackgroundResource=resource;
+        imageView.setBackgroundResource(resource);
+    }
+
 
 }

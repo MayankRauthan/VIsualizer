@@ -1,22 +1,29 @@
-package com.example.Visualizer;
+package com.example.Visualizer.shortestpath;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.Visualizer.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Stack;
 
 
 public class NodesGraph extends Fragment {
 
 
     private int nodeNo;
+    public ArrayList<HashMap<Integer,Integer>> adj;
+    public Stack<Integer> stack;
 
     public NodesGraph() {
         // Required empty public constructor
@@ -27,6 +34,8 @@ public class NodesGraph extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nodeNo=0;
+        stack=new Stack<>();
+        adj=new ArrayList<>();
     }
 
     @Override
@@ -42,10 +51,15 @@ public class NodesGraph extends Fragment {
                     iv.setX(event.getX()-75);
                     iv.setY(event.getY()-75);
                     zone.addView(iv);
-                    iv.setOnClickListener((view1)->{
-                        iv.setBackgroundColor(Color.RED);
+
+                    adj.add(new HashMap<>());
+                    iv.setOnClickListener(view1 -> {
+                        Log.d("customNodeView", "Node clicked");
+                        markSelected(iv);
+                        //iv.setBackgroundResource(R.drawable.redroundbutton,iv);
 
                     });
+
 
                     view.performClick();
                     return true;
@@ -54,6 +68,30 @@ public class NodesGraph extends Fragment {
             }
 
         });
+    }
+
+    private void markSelected(customNodeView iv) {
+        if (iv.currentBackgroundResource == R.drawable.greenroundstartbutton) {
+            if(!stack.isEmpty())
+            {
+                adj.get(stack.peek()).put(iv.nodeNo,iv.nodeNo);
+            }
+            stack.push(iv.nodeNo);
+            Log.i("green to red","clicked");
+            iv.setBackgroundResource(R.drawable.redroundbutton);
+        }
+        else if(iv.currentBackgroundResource==R.drawable.redroundbutton)
+        {
+            stack.pop();
+            if(!stack.isEmpty())
+            {
+                adj.get(stack.peek()).remove(iv.nodeNo);
+            }
+            iv.setBackgroundResource(R.drawable.greenroundstartbutton);
+
+        }
+        Log.i("adj",adj+"");
+        Log.i(" stack", ""+stack);
     }
 
     @Override

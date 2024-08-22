@@ -1,4 +1,4 @@
-package com.example.Visualizer;
+package com.example.Visualizer.Traversal;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import com.example.Visualizer.R;
 
 import java.util.LinkedList;
 import java.util.Queue;
